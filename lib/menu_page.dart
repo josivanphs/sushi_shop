@@ -93,7 +93,9 @@ class _MenuPageState extends State<MenuPage> {
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white),
                   borderRadius: BorderRadius.circular(20),
+                  
                 ),
+                hintText: 'Pesquise aqui...'
               ),
             ),
           ),
