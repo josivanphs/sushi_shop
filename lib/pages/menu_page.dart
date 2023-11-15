@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:sushi_shop/components/button.dart';
-import 'package:sushi_shop/models/food.dart';
+import 'package:sushi_shop/models/shop.dart';
 import 'package:sushi_shop/theme/colors.dart';
 
-import 'components/food_tile.dart';
+import '../components/food_tile.dart';
+import 'food_details_page.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -14,25 +16,25 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
-// list food menu
-  List foodMenu = [
-    //samon sushi
-    Food(
-      name: 'Temaki',
-      price: '23.00',
-      imagePath: 'assets/temaki.png',
-      rating: "4.8",
-    ),
-    Food(
-      name: 'Salmon',
-      price: '28.00',
-      imagePath: 'assets/sushi.png',
-      rating: "5.0",
-    ),
-  ];
+  // navitor page
+  void navigateToFoodDetails(int index) {
+    final shop = context.read<Shop>();
+    final foodMenu = shop.foodMenu;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FoodDetailspage(
+          food: foodMenu[index],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final shop = context.read<Shop>();
+    final foodMenu = shop.foodMenu;
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
@@ -86,17 +88,15 @@ class _MenuPageState extends State<MenuPage> {
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: TextField(
               decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(20),
-                  
-                ),
-                hintText: 'Pesquise aqui...'
-              ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  hintText: 'Pesquise aqui...'),
             ),
           ),
           const SizedBox(
@@ -120,6 +120,7 @@ class _MenuPageState extends State<MenuPage> {
               itemCount: foodMenu.length,
               itemBuilder: (context, index) => FoodTile(
                 food: foodMenu[index],
+                onTap: () => navigateToFoodDetails(index),
               ),
             ),
           ),

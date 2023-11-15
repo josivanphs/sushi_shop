@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:sushi_shop/theme/colors.dart';
 
 class MyButton extends StatelessWidget {
   final String text;
@@ -17,21 +18,26 @@ class MyButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 124, 80, 77),
+          color: secondaryColor,
           borderRadius: BorderRadius.circular(40),
         ),
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               text,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(
+                color: Colors.white,
+              ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
-            const Icon(Icons.arrow_forward, color: Colors.white)
+            const Icon(
+              Icons.arrow_forward,
+              color: Colors.white,
+            )
           ],
         ),
       ),
